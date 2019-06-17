@@ -58,7 +58,6 @@ class App extends Component {
     return (
       <div className="App">
       { loading ? <h1>Loading...</h1> : <h1>hello {showName && name}</h1>}
-        
        <Navbar title="GithubFinder"></Navbar>
        <div className='container'>
        <Users users = {this.state.users} loading = {this.state.loading}></Users>

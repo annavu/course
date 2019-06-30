@@ -47,8 +47,16 @@ class App extends Component {
     })
   }
 
+  clear = () => {
+    this.setState({
+      users: [],
+      loading:false,
+    })
+  }
+
 
   render() {
+    console.log(this.state.users)
     const name = "John Doe"
     // const name = 'test'
     // const foo = () => 'bar'
@@ -77,7 +85,10 @@ class App extends Component {
       <div className="App">
       { loading ? <h1>Loading...</h1> : <h1>hello {showName && name}</h1>}
        <Navbar title="GithubFinder"></Navbar>
-       <Search searchUsers = {this.searchUsers}/>
+       <Search 
+       searchUsers = {this.searchUsers} 
+       clear={this.clear} 
+       showClear={ this.state.users.length !== 0 ? true : false}/>
        <div className='container'>
        <Users users = {this.state.users} loading = {this.state.loading}></Users>
        </div>

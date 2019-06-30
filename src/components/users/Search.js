@@ -33,6 +33,7 @@ export class Search extends Component {
                     />
                     <input type="submit" value="search" className="btn btn-dark btn-block"/>
                 </form>
+                {this.props.showClear && <button className="btn btn-light btn-block" onClick={this.props.clear}>Clear</button>}
             </div>
         )
     }

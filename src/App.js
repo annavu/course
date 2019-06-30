@@ -60,7 +60,7 @@ class App extends Component {
     const name = "John Doe"
     // const name = 'test'
     // const foo = () => 'bar'
-    const loading = false;
+    const loadingN = false;
     const showName = false;
 
     // if(loading) {
@@ -79,18 +79,18 @@ class App extends Component {
     //   </div>
     // );
 
-  
+    const { users, loading } = this.state
 
     return (
       <div className="App">
-      { loading ? <h1>Loading...</h1> : <h1>hello {showName && name}</h1>}
+      { loadingN ? <h1>Loading...</h1> : <h1>hello {showName && name}</h1>}
        <Navbar title="GithubFinder"></Navbar>
        <Search 
        searchUsers = {this.searchUsers} 
        clear={this.clear} 
-       showClear={ this.state.users.length !== 0 ? true : false}/>
+       showClear={ users.length !== 0 ? true : false}/>
        <div className='container'>
-       <Users users = {this.state.users} loading = {this.state.loading}></Users>
+       <Users users = {users} loading = {loading}></Users>
        </div>
       </div>
     );

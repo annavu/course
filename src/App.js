@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Navbar from './components/layout/Navbar';
 import Users from './components/users/Users';
+import Search from './components/users/Search';
 import axios from 'axios';
 
 class App extends Component {
@@ -14,25 +15,39 @@ class App extends Component {
     }
   }
 
-  async componentDidMount() {
-    console.log(process.env.REACT_APP_GITHUB_CLIENT_SECRET)
-    this.setState({
-      loading: true,
-    })
-    //promises
-    // axios
-    // .get('https://api.github.com/users')
-    // .then(res => console.log(res.data))
-    const res = await axios.get(`https://api.github.com/users?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`);
+  // async componentDidMount() {
+  //   console.log(process.env.REACT_APP_GITHUB_CLIENT_SECRET)
+  //   this.setState({
+  //     loading: true,
+  //   })
+  //   //promises
+  //   // axios
+  //   // .get('https://api.github.com/users')
+  //   // .then(res => console.log(res.data))
+  //   const res = await axios.get(`https://api.github.com/users?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`);
 
-    this.setState({
-      users: res.data, 
-      loading: false,
-    })
-  }
+  //   this.setState({
+  //     users: res.data, 
+  //     loading: false,
+  //   })
+  // }
   
   foo = () => 'bar'
   // method that is part of the class so we add 'this'
+
+  searchUsers = async (text) => {
+    this.setState({
+      loading:true,
+    })
+    const res = await axios.get(`https://api.github.com/search/users?q=${text}&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`);
+
+    this.setState({
+      users: res.data.items, 
+      loading: false,
+    })
+  }
+
+
   render() {
     const name = "John Doe"
     // const name = 'test'
@@ -56,10 +71,13 @@ class App extends Component {
     //   </div>
     // );
 
+  
+
     return (
       <div className="App">
       { loading ? <h1>Loading...</h1> : <h1>hello {showName && name}</h1>}
        <Navbar title="GithubFinder"></Navbar>
+       <Search searchUsers = {this.searchUsers}/>
        <div className='container'>
        <Users users = {this.state.users} loading = {this.state.loading}></Users>
        </div>

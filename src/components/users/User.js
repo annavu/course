@@ -1,12 +1,14 @@
 import React, { Fragment, Component } from 'react';
 import Spinner from '../layout/Spinner';
 import { Link } from 'react-router-dom';
+import Repos from '../repos/Repos';
 
 export class User extends Component {
 
     componentDidMount() {
         console.log(this.props.match.params.login)
         this.props.getUser(this.props.match.params.login)
+        this.props.getUserRepos(this.props.match.params.login)
     }
     render() {
         const {name,
@@ -22,7 +24,7 @@ export class User extends Component {
               } = this.props.user
 
 
-        const { loading } = this.props;
+        const { loading, repos } = this.props;
 
         if(loading) return <Spinner />
         return (
@@ -42,12 +44,13 @@ export class User extends Component {
                             </Fragment>
                         )}
                         <a href={html_url} className='btn btn-dark my-1'>Visit Github Profile</a>
-                        
+
                     </div>
                 </div>
+                <Repos repos={repos}/>
             </Fragment>
         )
     }
 }
 
-export default User
+export default User;
